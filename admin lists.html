@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>DandD character sheet</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <style> 
+      .invItem{color:red;
+               border-style: solid;
+               font-size:auto;}
+      .translucent{
+          opacity: 0.5;
+      }
+      .area{border-style: solid;
+          padding:2px;
+          overflow-x: hidden;
+          background-color:black;
+          color:aliceblue;
+          font-size:75%;
+          height:auto;
+        }
+      #buttons{
+          position:fixed;
+          width:100%;
+          min-height: 5%;
+          z-index: 3;
+      }
+      .skillsTable tr td input{
+          width: 40px;
+      }
+      #buffer{
+         
+          width: 100%;
+          max-height:450px;
+     
+        }
+      .btn {
+          min-width:10vw;
+          font-size: 100%;}
+      
+      #charInfo .form-control{
+          width: 100%;
+          height:100%;
+      overflow-x: hidden;}
+    /* hidable elements on the sheet will toggle between height auto and height 0 when clicked */
+      .responsive{
+      width: 100%;
+      height: auto;
+      max-height:360px;
+      padding: 2px;}
+      
+      .hidden {
+         display:none;
+      }
+      
+      textarea{
+    width: 100%;
+      }
+      
+      #mods{
+        font-size:100%;
+      }
+      #mods td{width:10%;}
+      #mods td input{width:60px;}
+  </style>
+    
+</head>
+<body id="body" onload='restore()' >
+    
+<button onclick = "addNewList('body');">new_list</button>
+<div id="container" class="container-fluid">
+    
+     
+
+
+
+
+<script>
+
+var j =0;
+var k =0;  
+var l = 0;
+var m = 0;
+var n=0;
+
+//saves all instantly accessable HTML elements in the body
+function save(){
+//check browser is compatible
+    if (typeof(Storage) !== "undefined") {
+  window.alert("This browser is suitable to store data"); 
+} else {
+  window.alert('you will have to save content by screenshot...sorry. alternatively change your browser to chrome opera or safari');
+}
+    var body = document.getElementsByTagName("body");
+    var bodycontent = body[0];
+    
+    var saveState=bodycontent.innerHTML;
+localStorage.setItem("lastsave1", saveState);
+}
+    
+// restore previously saved version
+function restore(){
+    var lastSave = localStorage.getItem("lastsave1");
+    
+    if (lastSave!=null){
+    document.getElementById("body").innerHTML = localStorage.getItem("lastsave1");}
+    else{
+        window.alert('there is no data to access');
+    }
+   
+}
+
+//create a new list
+function addNewList(x){
+  var listNumber = k;
+  var listId = "list " + k.toString();
+  var listDescription = window.prompt('name your list');
+  //window.alert(itemDescription);
+  document.getElementById(x).innerHTML += '<div id="inventory" class="col-12 area"><label for="inventory">Inventory</label><textarea id="' + listId + '" placeholder="create a new item here"></textarea><button id="inventorybtn2" onclick="addNewItem(' + "'completedItems" + k + "','" + listId + "'" + ')">Add completed item </button><div id=' + "'completedItems"+ k + "'>;"
+  //window.alert(itemId);
+  k++;
+  
+}
+        
+//create a new item
+function addNewItem(x,y){
+  console.log(y);
+  var itemNumber = j;
+  var itemId = "item " + j.toString();
+  var itemDescription = document.getElementById(y).value;
+  //window.alert(itemDescription);
+  document.getElementById(x).innerHTML += "<div class='invItem' id='" + itemId + "'><p>" + itemDescription + "</p><button onclick='removeitem("+'"'+itemId+'"'+")'>delete</button></div>";
+  //window.alert(itemId);
+  j++;
+  
+}
+    
+function wipeData(){
+    if(confirm('are you sure you want to clear all saved data')){localStorage.removeItem("lastsave1");
+}
+    else{}}
+    
+//remove a note/item from the inventory/story notes   
+function removeitem(x){
+   var elem = document.getElementById(x);
+    elem.remove();
+}
+  
+    </script>
+</body>
+</html>
