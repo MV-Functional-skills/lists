@@ -9,28 +9,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <style> 
-      .invItem{color:red;
+      .invItem{color:black;
                border-style: solid;
-               font-size:auto;}
-      .translucent{
-          opacity: 0.5;
+               font-size:auto;
+               }
+      
+      .delete{
+        float:right;
       }
       .area{border-style: solid;
           padding:2px;
           overflow-x: hidden;
-          background-color:black;
-          color:aliceblue;
+          background-color:grey;
+          color:black;
           font-size:75%;
           height:auto;
         }
-      #buttons{
-          position:fixed;
-          width:100%;
-          min-height: 5%;
-          z-index: 3;
-      }
-      .skillsTable tr td input{
-          width: 40px;
+    
+      .inventory{
+        width:25vw;
+        display:inline-block;
+        color:black;
+          font-size:75%;
+          height:auto;
+          border-style: solid;
+          margin-right: 2px;
+          background-color:whitesmoke;
       }
       #buffer{
          
@@ -42,23 +46,9 @@
           min-width:10vw;
           font-size: 100%;}
       
-      #charInfo .form-control{
-          width: 100%;
-          height:100%;
-      overflow-x: hidden;}
-    /* hidable elements on the sheet will toggle between height auto and height 0 when clicked */
-      .responsive{
-      width: 100%;
-      height: auto;
-      max-height:360px;
-      padding: 2px;}
-      
-      .hidden {
-         display:none;
-      }
-      
       textarea{
     width: 100%;
+
       }
       
       #mods{
@@ -69,9 +59,10 @@
   </style>
     
 </head>
-<body id="body" onload='restore()' >
+<body id="body" onload='wipeData() restore()' onunload="save()";  >
     
-<button onclick = "addNewList('body');">new_list</button>
+<button onclick = "addNewList('body');"> new_list</button>
+<button onclick = "wipeData()">wipe all data</button>
 <div id="container" class="container-fluid">
     
      
@@ -83,9 +74,7 @@
 
 var j =0;
 var k =0;  
-var l = 0;
-var m = 0;
-var n=0;
+
 
 //saves all instantly accessable HTML elements in the body
 function save(){
@@ -120,7 +109,7 @@ function addNewList(x){
   var listId = "list " + k.toString();
   var listDescription = window.prompt('name your list');
   //window.alert(itemDescription);
-  document.getElementById(x).innerHTML += '<div id="inventory" class="col-12 area"><label for="inventory">Inventory</label><textarea id="' + listId + '" placeholder="create a new item here"></textarea><button id="inventorybtn2" onclick="addNewItem(' + "'completedItems" + k + "','" + listId + "'" + ')">Add completed item </button><div id=' + "'completedItems"+ k + "'>;"
+  document.getElementById(x).innerHTML += '<div class="inventory" class="col-12 area"><h1>'+ listDescription +'</h1><textarea rows="1" id="' + listId + '" placeholder="create a new item here"></textarea><button id="inventorybtn2" onclick="addNewItem(' + "'completedItems" + k + "','" + listId + "'" + ')">Add completed item </button><div id=' + "'completedItems"+ k + "'>";
   //window.alert(itemId);
   k++;
   
@@ -133,14 +122,17 @@ function addNewItem(x,y){
   var itemId = "item " + j.toString();
   var itemDescription = document.getElementById(y).value;
   //window.alert(itemDescription);
-  document.getElementById(x).innerHTML += "<div class='invItem' id='" + itemId + "'><p>" + itemDescription + "</p><button onclick='removeitem("+'"'+itemId+'"'+")'>delete</button></div>";
+  document.getElementById(x).innerHTML += "<div class='invItem' id='" + itemId + "'><p>" + itemDescription + "<button class='delete' onclick='removeitem("+'"'+itemId+'"'+")'>delete</button></p></div>";
   //window.alert(itemId);
   j++;
   
 }
     
 function wipeData(){
-    if(confirm('are you sure you want to clear all saved data')){localStorage.removeItem("lastsave1");
+    if(confirm('are you sure you want to clear all saved data'))
+    
+    {localStorage.clear();
+      console.log('cleared');
 }
     else{}}
     
