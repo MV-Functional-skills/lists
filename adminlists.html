@@ -78,6 +78,7 @@ var k =0;
 
 //saves all instantly accessable HTML elements in the body
 function save(){
+  if(confirm('are you sure you want to clear all saved data')){
 //check browser is compatible
     if (typeof(Storage) !== "undefined") {
   window.alert("This browser is suitable to store data"); 
@@ -89,7 +90,7 @@ function save(){
     
     var saveState=bodycontent.innerHTML;
 localStorage.setItem("lastsave1", saveState);
-}
+}}
     
 // restore previously saved version
 function restore(){
